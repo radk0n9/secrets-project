@@ -66,19 +66,19 @@ app.route("/login")
                     res.render("secrects");
                 }else{
                     res.redirect("login");
-                }
+                };
             };
         }).catch((error)=>{
             if (error){
                 console.log(error);
-            }
-        })
-    })
+            };
+        });
+    });
 
 app.route("/secrects")
     .get(function(req, res){
         res.render("secrects")
-    })
+    });
 
 app.listen(port, function(){
     console.log("Server is running on port " + port);
