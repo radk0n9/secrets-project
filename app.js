@@ -4,7 +4,9 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const express = require("express");
 const mongoose = require("mongoose");
-const md5 = require("md5");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+// const md5 = require("md5");
 // const encrypt = require("mongoose-encryption");
 
 const app = express();
@@ -38,19 +40,21 @@ app.route("/register")
         res.render("register")
     })
     .post(function(req, res){
-        const newUser = new User({
-            email: req.body.username,
-            password: md5(req.body.password)
-        });
-        newUser.save().then((message)=>{
-            if (message){
-                res.render("secrects");
-            };
-        }).catch((error)=>{
-            if (error){
-                console.log(error);
-            };
-        });
+        bcrypt.hash(req.body.password, saltRounds, function(err, hash){
+            const newUser = new User({
+                email: req.body.username,
+                password: hash
+            });
+            newUser.save().then((message)=>{
+                if (message){
+                    res.render("secrects");
+                };
+            }).catch((error)=>{
+                if (error){
+                    console.log(error);
+                };
+            });
+        })  
     });
 
 app.route("/login")
@@ -63,11 +67,13 @@ app.route("/login")
 
         User.findOne({email: username}).then((foundUser)=>{
             if (foundUser){
-                if (foundUser.password === md5(password)){
-                    res.render("secrects");
-                }else{
-                    res.redirect("login");
-                };
+                bcrypt.compare(password, foundUser.password, function(err, result){
+                    if (result){
+                        res.render("secrects");
+                    }else{
+                        res.redirect("login");
+                    };
+                })                    
             };
         }).catch((error)=>{
             if (error){
