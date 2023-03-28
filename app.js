@@ -89,6 +89,16 @@ app.route("/login")
         res.redirect("/secrects");
     });
 
+app.get("/logout", function(req, res){
+        req.logout(function(err){
+            if (err){
+                console.log(err);
+            }else{
+                res.redirect("/");
+            };
+        });
+    });
+
 app.listen(port, function(){
     console.log("Server is running on port " + port);
 });
