@@ -18,6 +18,10 @@
     margin-bottom: 15px;
 }
 
+#button-google:hover {
+    color: rgb(123, 172, 218);
+}
+
 body {
     background-color: rgb(223, 223, 223)!important;
 }
