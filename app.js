@@ -31,7 +31,8 @@ app.use(passport.session());
 
 const userSchema = new mongoose.Schema ({
     email: String,
-    password: String
+    password: String,
+    googleId: String
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -89,9 +90,12 @@ app.get("/auth/google",
 app.get("/auth/google/secrets",
     passport.authenticate("google", {failureRedirect: "/login"}),
     function(req, res){
-        res.render("secrets");
+        res.redirect("/secrets");
+        console.log("Successfully register new User via Google.")
     }
 );
+
+//ADD FACEBOOK REGISTER!
 
 app.route("/secrets")
     .get(function(req, res){
@@ -112,7 +116,7 @@ app.route("/register")
                 console.log("Error while user register!", err);
                 res.redirect("register");
             }else{
-                console.log("User registered");
+                console.log("Successfully register new User.")
                 res.redirect("/secrets");
             };
         }); 
@@ -133,6 +137,7 @@ app.get("/logout", function(req, res){
                 console.log(err);
             }else{
                 res.redirect("/");
+                console.log("Successfully logout.")
             };
         });
     });
