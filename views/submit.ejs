@@ -1,0 +1,18 @@
+<%- include("partials/header") %>
+
+<div id="jumbotron" class="p-5 bg-light rounded-3 centered">
+    <div class="container">
+        <i class="fas fa-key fa-6x"></i>
+        <h1 class="display-5 fw-bold">Secrects</h1>
+        <p class="secret-text">Don't keep your secrets, share them anonymously!</p>
+
+        <form action="/submit" method="post">
+            <div class="form-group">
+                <input type="text" id="submit-secret" class="form-control center-block" name="secret" placeholder="What's your secret?">
+            </div>
+            <button type="submit" class="btn btn-dark btn-lg">Submit</button>
+        </form>
+    </div> 
+</div>
+
+<%- include("partials/header") %>

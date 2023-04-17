@@ -22,6 +22,11 @@
     color: rgb(123, 172, 218);
 }
 
+#submit-secret { 
+    width: 60%;
+    text-align: center;
+}
+
 body {
     background-color: rgb(223, 223, 223)!important;
 }
@@ -34,6 +39,13 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.center-block {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 
 .footer {
     text-align: center;
